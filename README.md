@@ -11,8 +11,10 @@ change import in `main.go` to relevant day and call either `Part1()` or `Part2()
 import day "github.com/nejcambrozic/advent-of-code-24-go/day01"
 
 func main() {
-	day.Part1()
+  day.Part1()
 }
 ```
-
 These function will print the solution to stdout.
+
+Run from project root:
+`go run main.go`
