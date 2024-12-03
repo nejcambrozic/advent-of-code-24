@@ -8,12 +8,11 @@ import (
 )
 
 func Part2() {
-	instructions, err := utils.ReadString("day03/test.txt")
+	instructions, err := utils.ReadString("day03/test1.txt")
 	if err != nil {
 		fmt.Println("Error reading input as single string", err)
 		return
 	}
-
 	// We are only looking for instructions between [enabled, disabled] chars
 	// in order to handle beginning and end of string let's add enable at the start
 	// and disable char at the end
