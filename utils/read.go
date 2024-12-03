@@ -54,3 +54,13 @@ func Read2dArray(filePath string) ([][]int, error) {
 
 	return result, nil
 }
+
+func ReadString(filePath string) (string, error) {
+	file, err := os.ReadFile(filePath)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return "", err
+	}
+
+	return string(file), nil
+}
