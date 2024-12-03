@@ -8,7 +8,7 @@ import (
 )
 
 func Part2() {
-	instructions, err := utils.ReadString("day03/input.txt")
+	instructions, err := utils.ReadString("day03/test.txt")
 	if err != nil {
 		fmt.Println("Error reading input as single string", err)
 		return

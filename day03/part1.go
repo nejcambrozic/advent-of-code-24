@@ -24,7 +24,7 @@ func MulSum(instruction string) int {
 }
 
 func Part1() {
-	instructions, err := utils.ReadString("day03/input.txt")
+	instructions, err := utils.ReadString("day03/test.txt")
 	if err != nil {
 		fmt.Println("Error reading input as single string", err)
 		return
