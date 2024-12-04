@@ -57,7 +57,7 @@ func isReportSafeAllowSkip(report []int, levelsAllowedToSkip int) bool {
 }
 
 func Part2() {
-	reports, err := utils.Read2dArray("day02/test.txt")
+	reports, err := utils.Read2dIntArray("day02/test.txt")
 	if err != nil {
 		fmt.Println("Error reading input as 2dArray", err)
 		return

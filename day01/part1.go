@@ -10,7 +10,7 @@ import (
 
 func Part1() {
 
-	locationIds, err := utils.Read2dArray("day01/test.txt")
+	locationIds, err := utils.Read2dIntArray("day01/test.txt")
 	if err != nil {
 		fmt.Println("Error reading input as 2dArray", err)
 		return

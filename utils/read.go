@@ -17,7 +17,7 @@ import (
 //	 ---
 //
 // Gets turnes into [[1,2,3],[4,5,6]]
-func Read2dArray(filePath string) ([][]int, error) {
+func Read2dIntArray(filePath string) ([][]int, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		fmt.Println("Error opening file:", err)

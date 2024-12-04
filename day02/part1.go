@@ -29,7 +29,7 @@ func isReportSafe(report []int) bool {
 }
 
 func Part1() {
-	reports, err := utils.Read2dArray("day02/test.txt")
+	reports, err := utils.Read2dIntArray("day02/test.txt")
 	if err != nil {
 		fmt.Println("Error reading input as 2dArray", err)
 		return
