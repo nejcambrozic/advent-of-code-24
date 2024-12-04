@@ -64,3 +64,44 @@ func ReadString(filePath string) (string, error) {
 
 	return string(file), nil
 }
+
+// Reads a file containing lines of chars and returns a 2D array of chars
+// File looking like:
+//
+//	---
+//	 ABC
+//	 DEF
+//	 ---
+//
+// Gets turnes into [[A,B,C],[D,E,F]]
+func Read2dCharArray(filePath string) ([][]string, error) {
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return nil, err
+	}
+	defer file.Close()
+
+	var result [][]string
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		currentLine := []string{}
+		for _, char := range line {
+			currentLine = append(currentLine, string(char))
+		}
+
+		// Ignore empty lines, just to be sure
+		if len(currentLine) > 0 {
+			result = append(result, currentLine)
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading file:", err)
+	}
+
+	return result, nil
+}
