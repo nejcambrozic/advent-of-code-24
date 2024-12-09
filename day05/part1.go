@@ -33,12 +33,12 @@ func isValidPlan(plan []int, mustBeBefore map[int]mapset.Set[int]) bool {
 	return true
 }
 
-func Part1() {
+func getInstructionAndUpdatePlans(filePath string) (map[int]mapset.Set[int], [][]int, error) {
 
 	fileContent, err := utils.ReadString("day05/input.txt")
 	if err != nil {
 		fmt.Println("Error reading file as string", err)
-		return
+		return nil, nil, err
 	}
 
 	// first part above empty line: order instructions
@@ -70,7 +70,23 @@ func Part1() {
 		}
 	}
 
-	updatePlans, _ := utils.Sto2dIntArray(updatePlanInput, ",")
+	updatePlans, err := utils.Sto2dIntArray(updatePlanInput, ",")
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return orderInstructions, updatePlans, nil
+}
+
+func Part1() {
+
+	orderInstructions, updatePlans, err := getInstructionAndUpdatePlans("day05/input.txt")
+
+	if err != nil {
+		fmt.Println("Error getting data", err)
+		return
+	}
 
 	midElementSum := 0
 	for _, plan := range updatePlans {
