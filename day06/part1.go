@@ -97,13 +97,35 @@ func step(grid [][]string, currPos Position) (Position, error) {
 
 }
 
-func markVisisted(grid *[][]string, counter *int, pos Position) {
+func markVisisted(grid *[][]string, path *[]Position, pos Position) {
 	(*grid)[pos.Row][pos.Column] = "X"
-	(*counter) += 1
+	(*path) = append((*path), pos)
 }
 
 func wasVisited(grid *[][]string, pos Position) bool {
 	return (*grid)[pos.Row][pos.Column] == "X"
+
+}
+
+func walkTheGrid(grid [][]string, pos Position) ([]Position, error) {
+	path := []Position{}
+
+	var err error
+	for true {
+		// count unique locations visited
+		visited := wasVisited(&grid, pos)
+		if !visited {
+			markVisisted(&grid, &path, pos)
+		}
+
+		pos, err = step(grid, pos)
+
+		// fell of the grid
+		if err != nil {
+			break
+		}
+	}
+	return path, nil
 
 }
 
@@ -114,32 +136,14 @@ func Part1() {
 		fmt.Println("Error reading data as 2d char array")
 		return
 	}
-	locationCounter := 0
 
-	position, err := getCurrentPosition(grid)
+	startingPosition, err := getCurrentPosition(grid)
 	if err != nil {
 		return
 	}
-	// mark starting position as visited
-	markVisisted(&grid, &locationCounter, position)
 
-	for true {
-
-		position, err = step(grid, position)
-		// fell of the grid
-		if err != nil {
-			break
-		}
-
-		// count unique locations visited
-		visited := wasVisited(&grid, position)
-		if !visited {
-			markVisisted(&grid, &locationCounter, position)
-		}
-
-	}
-
+	path, _ := walkTheGrid(grid, startingPosition)
 	printGrid(grid)
-	fmt.Println("Number of location visited", locationCounter)
+	fmt.Println("Number of location visited", len(path))
 
 }
