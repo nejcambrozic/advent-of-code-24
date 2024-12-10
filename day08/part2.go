@@ -7,19 +7,9 @@ import (
 	"github.com/nejcambrozic/advent-of-code-24-go/utils"
 )
 
-type Location struct {
-	Row    int
-	Column int
-}
-
-func IsValidLocation(loc Location, gridSize int) bool {
-	return loc.Row >= 0 && loc.Row < gridSize && loc.Column >= 0 && loc.Column < gridSize
-}
-
-func Part1() {
+func Part2() {
 
 	grid, _ := utils.Read2dCharArray("day08/input.txt")
-
 	// assuming square grid
 	gridSize := len(grid)
 
@@ -31,6 +21,8 @@ func Part1() {
 			freq := grid[i][j]
 			if freq != "." {
 				loc := Location{Row: i, Column: j}
+				antizones.Add(loc)
+
 				locations, ok := antenas[freq]
 				if !ok {
 					antenas[freq] = mapset.NewSet(loc)
@@ -39,19 +31,27 @@ func Part1() {
 
 				// otherwise calculate antizone for each antena for the given frequency already visited
 				for existing := range locations.Iter() {
-
 					iDiff := loc.Row - existing.Row
 					jDiff := loc.Column - existing.Column
 
-					lookbackPos := Location{Row: existing.Row - iDiff, Column: existing.Column - jDiff}
-					if IsValidLocation(lookbackPos, gridSize) {
-						antizones.Add(lookbackPos)
+					for z := 1; z < gridSize; z++ {
+						lookbackPos := Location{Row: existing.Row - z*iDiff, Column: existing.Column - z*jDiff}
+						if IsValidLocation(lookbackPos, gridSize) {
+							antizones.Add(lookbackPos)
+						} else {
+							break
+						}
 					}
 
-					lookaheadPos := Location{Row: loc.Row + iDiff, Column: loc.Column + jDiff}
-					if IsValidLocation(lookaheadPos, gridSize) {
-						antizones.Add(lookaheadPos)
+					for z := 1; z < gridSize; z++ {
+						lookaheadPos := Location{Row: loc.Row + z*iDiff, Column: loc.Column + z*jDiff}
+						if IsValidLocation(lookaheadPos, gridSize) {
+							antizones.Add(lookaheadPos)
+						} else {
+							break
+						}
 					}
+
 				}
 				locations.Add(loc)
 			}
