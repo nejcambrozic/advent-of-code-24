@@ -34,7 +34,9 @@ func Read2dIntArray(filePath string) ([][]int, error) {
 
 		var currentLine []int
 		for _, part := range parts {
-			num, err := strconv.Atoi(part)
+
+			cleanedPart := strings.Replace(part, ":", "", -1)
+			num, err := strconv.Atoi(cleanedPart)
 			if err != nil {
 				fmt.Println("Error converting string to integer:", err)
 				panic("Can not convert string to integer")
