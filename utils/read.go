@@ -107,3 +107,35 @@ func Read2dCharArray(filePath string) ([][]string, error) {
 
 	return result, nil
 }
+
+func ReadIntArray(filePath string) ([]int, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return nil, err
+	}
+	defer file.Close()
+
+	var result []int
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		parts := strings.Fields(line)
+
+		for _, part := range parts {
+			num, err := strconv.Atoi(part)
+			if err != nil {
+				fmt.Printf("Error converting '%s' to integer: %v\n", part, err)
+				continue
+			}
+			// Append the integer to the slice
+			result = append(result, num)
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading file:", err)
+	}
+
+	return result, nil
+
+}
