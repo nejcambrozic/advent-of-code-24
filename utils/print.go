@@ -2,11 +2,23 @@ package utils
 
 import "fmt"
 
-func Print2dArray(arr [][]string) {
-	for i := range arr {
-		for j := range arr[i] {
-			fmt.Print(arr[i][j])
+func Print2dArray(arr interface{}) {
+
+	switch v := arr.(type) {
+
+	case [][]int:
+		for i := range v {
+			for j := range v[i] {
+				fmt.Print(v[i][j])
+			}
+			fmt.Println()
 		}
-		fmt.Println()
+	case [][]string:
+		for i := range v {
+			for j := range v[i] {
+				fmt.Print(v[i][j])
+			}
+			fmt.Println()
+		}
 	}
 }

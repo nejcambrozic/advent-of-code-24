@@ -19,7 +19,8 @@ func Sto2dIntArray(input string, delimiter string) ([][]int, error) {
 			el, err := strconv.Atoi(element)
 			if err != nil {
 				fmt.Println("Error parsing int", err)
-				panic("Failed to parse int")
+				//panic("Failed to parse int")
+				el = -1
 			}
 			currentElements = append(currentElements, el)
 		}

@@ -1,10 +1,10 @@
 package main
 
 import (
-	day "github.com/nejcambrozic/advent-of-code-24-go/day09"
+	day "github.com/nejcambrozic/advent-of-code-24-go/day10"
 )
 
 func main() {
-	day.Part1()
+	day.Part2()
 
 }
